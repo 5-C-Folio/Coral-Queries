@@ -23,9 +23,11 @@ group by org2.organizationID) as Aliases
 
 from
 coral_organizations.Organization org
-Left join coral_organizations.Alias alcode 
+Left join coral_organizations.Alias alcode
+#type 5 is distinct to UMASS.  Type may be different for other schools
 on org.organizationID = alcode.organizationID and alcode.aliasTypeID = 5
 left join coral_organizations.OrganizationRoleProfile orp1
+#role 6 is distinct to UMASS. RoleID might be different for other schools
 on org.organizationID =  orp1.organizationID and orp1.organizationRoleID = 6
 left join coral_organizations.OrganizationRoleProfile orp2
 on org.organizationID = orp2.organizationID
