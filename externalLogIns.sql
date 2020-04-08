@@ -1,4 +1,5 @@
-select a.name as code, group_concat(ext.shortName) as interfaceType ,ex.emailAddress, ex.username, md5(ex.password), ex.noteText
+select a.name as code, group_concat(ext.shortName) as interfaceType ,ex.emailAddress, ex.username, md5(ex.password), 
+RePLACE(REPLACE(ex.noteText, ',',';'), '\n', ' ') as Notes
  from coral_organizations.ExternalLogin ex
 inner join coral_organizations.Alias a
 on  ex.organizationID = a.organizationID and a.aliasTypeID = 5
