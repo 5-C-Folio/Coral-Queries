@@ -1,4 +1,4 @@
-select a.name as code, group_concat(ext.shortName) as interfaceType ,
+select ex.externalLoginID, a.name as code, group_concat(ext.shortName) as interfaceType ,
 ex.emailAddress, 
 ex.username, md5(ex.password), 
 ex.loginURL,
