@@ -1,4 +1,4 @@
-SELECT distinct  al.name as orgCode, r.titleText, r.descriptionText, 
+SELECT distinct r.resourceID, al.name as orgCode, r.titleText, replace(replace(r.descriptionText,'\n',''), ',',';'), 
 r.orderNumber, r.systemNumber, r.currentStartDate, 
 r.currentEndDate , at.shortName as acqType, rt.shortName as resourceType, st.shortName as statusName,
 (SELECT group_concat(atyr.shortName, ': ' ,alr.shortName)
@@ -18,7 +18,7 @@ left join coral_resources.ResourceOrganizationLink rl
 on r.resourceID = rl.resourceID
 left  join  coral_organizations.Organization org
 on rl.organizationID = org.organizationID 
-inner join coral_organizations.Alias al 
+left join coral_organizations.Alias al 
 on rl.organizationID = al.organizationID and al.aliasTypeID = 5
 inner join coral_resources.Status st
 on r.statusID = st.statusID
@@ -30,5 +30,12 @@ where
 st.statusID != 4
 and rt.resourceTypeID not In (3, 5)
 and r.resourceID not in (select resourceID from coral_resources.ResourceRelationship)
+and r.resourceID not in (select relatedResourceID from coral_resources.ResourceRelationship)
 and r.acquisitionTypeID not in (20, 19, 2, 8, 9, 12, 25,23,24,15)
 and rl.organizationRoleID = 6
+
+
+
+
+
+
