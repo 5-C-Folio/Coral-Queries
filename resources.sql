@@ -1,4 +1,4 @@
-SELECT distinct r.resourceID, al.name as orgCode, r.titleText, replace(replace(r.descriptionText,'\n',''), ',',';'), 
+SELECT distinct CONCAT("UM",r.resourceID), CONCAT("UM", al.name )as orgCode1, CONCAT( "UM ", r.titleText), replace(replace(r.descriptionText,'\n',''), ',',';'), 
 r.orderNumber, r.systemNumber, r.currentStartDate, 
 r.currentEndDate , at.shortName as acqType, rt.shortName as resourceType, st.shortName as statusName,
 (SELECT group_concat(atyr.shortName, ': ' ,alr.shortName)
@@ -33,9 +33,3 @@ and r.resourceID not in (select resourceID from coral_resources.ResourceRelation
 and r.resourceID not in (select relatedResourceID from coral_resources.ResourceRelationship)
 and r.acquisitionTypeID not in (20, 19, 2, 8, 9, 12, 25,23,24,15)
 and rl.organizationRoleID = 6
-
-
-
-
-
-
