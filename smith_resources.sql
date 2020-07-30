@@ -1,6 +1,14 @@
-SELECT distinct CONCAT("SC", r.resourceID),  CONCAT("SC", al.name) as orgCode, CONCAT("SC ", r.titleText), replace(replace(r.descriptionText,'\n',''), ',',';'), 
-r.orderNumber, r.systemNumber, r.currentStartDate, 
-r.currentEndDate , at.shortName as acqType, rt.shortName as resourceType, st.shortName as statusName,
+SELECT distinct CONCAT("SC", r.resourceID) as externalID,  
+CONCAT("SC", al.name) as orgCode, 
+CONCAT("SC ", r.titleText) as titleText,
+ replace(replace(r.descriptionText,'\n',''), ',',';') as descriptionText, 
+r.orderNumber, 
+r.systemNumber, 
+r.currentStartDate, 
+r.currentEndDate , 
+at.shortName as acqType, 
+rt.shortName as resourceType, 
+st.shortName as statusName,
 (SELECT group_concat(atyr.shortName, ': ' ,alr.shortName)
 FROM 
 smith_coral_resources.Alias alr
