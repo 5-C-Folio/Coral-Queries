@@ -1,6 +1,13 @@
-SELECT distinct CONCAT("UM",r.resourceID), CONCAT("UM", al.name )as orgCode1, CONCAT( "UM ", r.titleText), replace(replace(r.descriptionText,'\n',''), ',',';'), 
-r.orderNumber, r.systemNumber, r.currentStartDate, 
-r.currentEndDate , at.shortName as acqType, rt.shortName as resourceType, st.shortName as statusName,
+SELECT distinct CONCAT("UM",r.resourceID) as externalID, 
+CONCAT("UM", al.name )as orgCode, 
+CONCAT( "UM ", r.titleText) as titleText, 
+replace(replace(r.descriptionText,'\n',''), ',',' ') as descriptionText, 
+r.orderNumber, 
+r.systemNumber, r.currentStartDate, 
+r.currentEndDate , 
+at.shortName as acqType, 
+rt.shortName as resourceType, 
+st.shortName as statusName,
 (SELECT group_concat(atyr.shortName, ': ' ,alr.shortName)
 FROM 
 coral_resources.Alias alr
