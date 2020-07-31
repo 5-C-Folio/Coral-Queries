@@ -4,7 +4,11 @@ CONCAT("SC ", r.titleText) as titleText,
  replace(replace(r.descriptionText,'\n',''), ',',';') as descriptionText, 
 r.orderNumber, 
 r.systemNumber, 
-r.currentStartDate, 
+CASE
+when r.currentStartDate is NULL then '2020-01-01'
+else r.currentStartDate
+end as currentStartDate,
+
 r.currentEndDate , 
 at.shortName as acqType, 
 rt.shortName as resourceType, 
