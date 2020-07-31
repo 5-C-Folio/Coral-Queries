@@ -3,7 +3,11 @@ CONCAT("UM", al.name )as orgCode,
 CONCAT( "UM ", r.titleText) as titleText, 
 replace(replace(r.descriptionText,'\n',''), ',',' ') as descriptionText, 
 r.orderNumber, 
-r.systemNumber, r.currentStartDate, 
+r.systemNumber, 
+CASE
+when r.currentStartDate is NULL then '2020-01-01'
+else r.currentStartDate
+end as currentStartDate,
 r.currentEndDate , 
 at.shortName as acqType, 
 rt.shortName as resourceType, 
