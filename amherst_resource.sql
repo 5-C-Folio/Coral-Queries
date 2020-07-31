@@ -1,6 +1,16 @@
-SELECT distinct r.resourceID, al.name as orgCode, r.titleText, replace(replace(r.descriptionText,'\n',''), ',',';'), 
-r.orderNumber, r.systemNumber, r.currentStartDate, 
-r.currentEndDate , at.shortName as acqType, rt.shortName as resourceType, st.shortName as statusName,
+SELECT distinct CONCAT('AC', r.resourceID) as externalID, 
+CONCAT('AC', al.name) as orgCode, 
+CONCAT ('AC ', r.titleText) as titleText, 
+replace(replace(r.descriptionText,'\n',''), ',',';') as desciptionText, 
+r.orderNumber, 
+r.systemNumber, 
+CASE
+when r.currentStartDate is NULL then '2020-01-01'
+else r.currentStartDate
+end as currentStartDate,
+r.currentEndDate , at.shortName as acqType,
+ rt.shortName as resourceType, 
+ st.shortName as statusName,
 (SELECT group_concat(atyr.shortName, ': ' ,alr.shortName)
 FROM 
 coral_resources.Alias alr
