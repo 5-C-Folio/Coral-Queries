@@ -8,8 +8,6 @@ concat( "UM", rn.resourceID) as externalID, nt.shortName as noteTitle, case
                       when rn.NoteTypeID in (23,22,14,24) then "Discovery Details"
                       when rn.NoteTypeID in (4,1) then "General"
                       when rn.NoteTypeID = 5 then "Licensing Details"
-                      when rn.NoteTypeID = 10 then "HLM"
-                      when rn.NoteTypeId = 12 then "SFX"
                       else rn.NoteTypeID
                       end as "note Type",
 replace(replace(rn.noteText, '\n', ' '), ',', '; ') as noteText
@@ -24,18 +22,17 @@ on r.resourceID = rn.ResourceID
 WHERE rn.noteTypeID in (
 17,
 3,
+4,
 2,
 23,
 22,
 14,
 24,
-
+15,
 5,
 1)
 and rn.resourceID in (
 SELECT r.resourceID 
-
-
 FROM coral_resources.Resource r
 left join coral_resources.ResourceOrganizationLink rl
 on r.resourceID = rl.resourceID
